@@ -36,9 +36,9 @@ public class Point {
 
         points.forEach(p ->
         {
-            if(p.getX() != x && p.getY() == y)
+            if((p.getX() != x || p.getY() != y) && (p.getY() == y || p.getX() == x))
             {
-                if(p.getX() < x+2 && p.getX() > x-2 && p.getY() < x+2 && p.getX() > x-2)
+                if(p.getX() < x+2 && p.getX() > x-2 && p.getY() < y+2 && p.getY() > y-2)
                 {
                     adjacent.add(p);
                 }
@@ -54,9 +54,9 @@ public class Point {
 
         points.forEach(p ->
         {
-            if(p.getX() != x && p.getY() == y)
+            if((p.getX() != x || p.getY() != y) && (p.getY() == y || p.getX() == x))
             {
-                if(p.getX() < x+2 && p.getX() > x-2 && p.getY() < x+2 && p.getX() > x-2)
+                if(p.getX() < x+2 && p.getX() > x-2 && p.getY() < y+2 && p.getY() > y-2)
                 {
                     adjacent.add(p);
                 }
@@ -114,6 +114,16 @@ public class Point {
             return p;
         }
         return null;
+    }
+    public Point pickToNoRepeat(Random r)
+    {
+        ArrayList<Point> paths = adjacent;
+        Main.debug("Paths possible: " + paths.size());
+        Point p = paths.get(r.nextInt(paths.size()));
+        if(p.getTo().size() == 0)
+            addTo(p);
+        return p;
+
     }
 
 
